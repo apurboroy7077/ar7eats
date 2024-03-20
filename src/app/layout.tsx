@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css"; //TAILWIND CSS IS ADDED BY THIS
+import TheNavbar from "@/components/TheNavbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +14,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <header>
+          <TheNavbar />
+        </header>
+        {children}
+      </body>
     </html>
   );
 }
