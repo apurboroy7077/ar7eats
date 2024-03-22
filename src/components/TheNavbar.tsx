@@ -39,7 +39,7 @@ const TheNavbar = () => {
               return (
                 <li
                   key={Math.random()}
-                  className="text-sm lg:text-lg font-medium  py-3 px-3 rounded-lg hover:bg-[#ecbdbb] active:scale-[0.95]"
+                  className="text-sm lg:text-lg font-medium  py-3 px-3 rounded-lg hover:bg-[#ecbdbb] active:scale-[0.95] text-nowrap"
                 >
                   <Link href={hrefValue}>{title}</Link>
                 </li>
@@ -60,12 +60,14 @@ const TheNavbar = () => {
               className=" w-[2.2rem] lg:w-[3rem]"
             />
           </button>
-          <button className="hidden md:block bg-[#F54748] text-white px-3 py-1 rounded lg:text-lg active:scale-[0.95]">
-            Log In
-          </button>
+          <Link href="/sign-in">
+            <button className="hidden md:block bg-[#F54748] text-white px-3 py-1 rounded lg:text-lg active:scale-[0.95]">
+              Log In
+            </button>
+          </Link>
         </div>
       </div>
-      <ul className="mt-3 h-[0px] overflow-hidden mobile-nav-list transition-all-halfsecond grid md:hidden">
+      <ul className="mt-3 h-[0px] overflow-y-auto mobile-nav-list transition-all-halfsecond grid md:hidden">
         {linkData.map((data) => {
           let { title, hrefValue } = data;
           return (

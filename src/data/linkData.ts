@@ -19,6 +19,10 @@ const linkData = [
     title: "Reservation",
     hrefValue: "/reservation",
   },
+  {
+    title: "Sign In",
+    hrefValue: "/sign-in",
+  },
 ];
 type linkDataType = typeof linkData;
 export default linkData;

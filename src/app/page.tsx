@@ -9,14 +9,13 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <HomepageSection1 />
       <HomepageSection2 />
       <PopularMenuSection />
       <ChefSection />
       <CustomerReviewSection />
       <HungryBannerSection />
-      <TheFooter />
-    </main>
+    </>
   );
 }
