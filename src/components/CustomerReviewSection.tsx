@@ -7,14 +7,16 @@ const CustomerReviewSection = () => {
         </div>
         <div className="mt-7 flex items-center justify-center">
           <div className="max-w-[90%] md:max-w-[70%]">
-            <div className="text-3xl md:text-4xl lg:text-5xl font-bold">"</div>
+            <div className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              &quot;
+            </div>
             <div className="text-sm md:text-lg  opacity-[0.7] text-justify px-5">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
               at velit quidem. Iure officiis iusto suscipit sit modi
               necessitatibus deleniti!
             </div>
             <div className="text-end text-3xl md:text-4xl lg:text-5xl font-bold">
-              "
+              &quot;
             </div>
           </div>
         </div>
