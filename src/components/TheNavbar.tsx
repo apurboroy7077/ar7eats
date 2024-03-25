@@ -37,12 +37,11 @@ const TheNavbar = () => {
             {linkData.map((data) => {
               let { title, hrefValue } = data;
               return (
-                <li
-                  key={Math.random()}
-                  className="text-sm lg:text-lg font-medium  py-3 px-3 rounded-lg hover:bg-[#ecbdbb] active:scale-[0.95] text-nowrap"
-                >
-                  <Link href={hrefValue}>{title}</Link>
-                </li>
+                <Link href={hrefValue} key={Math.random()}>
+                  <li className="text-sm lg:text-lg font-medium  py-3 px-3 rounded-lg hover:bg-[#ecbdbb] active:scale-[0.95] text-nowrap">
+                    {title}
+                  </li>
+                </Link>
               );
             })}
           </ul>

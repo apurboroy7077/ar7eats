@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css"; //TAILWIND CSS IS ADDED BY THIS
 import TheNavbar from "@/components/TheNavbar";
 import TheFooter from "@/components/TheFooter";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "AR7Eats",
@@ -21,11 +23,11 @@ export default function RootLayout({
         <link rel="icon" type="" href="/images/icons/chicken.svg"></link>
       </head>
       <body>
+        <ToastContainer />
         <header>
           <TheNavbar />
         </header>
         <main>{children}</main>
-
         <TheFooter />
       </body>
     </html>
