@@ -14,4 +14,4 @@ const GiveUserWithSameEmail = async (email: string, theResponse: Response) => {
   });
 };
 
-export default CheckUserWithSameEmailExists;
+export default GiveUserWithSameEmail;

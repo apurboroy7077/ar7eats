@@ -5,7 +5,7 @@ import {
 } from "@/data/Variables";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   const handleYes = () => {
@@ -39,4 +39,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
