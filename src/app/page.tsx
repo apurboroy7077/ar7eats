@@ -1,3 +1,4 @@
+import BasicApiCalls from "@/components/BasicApiCalls";
 import ChefSection from "@/components/ChefSection";
 import CustomerReviewSection from "@/components/CustomerReviewSection";
 import HomepageSection1 from "@/components/HomepageSection1";
@@ -10,6 +11,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
+      <BasicApiCalls />
       <HomepageSection1 />
       <HomepageSection2 />
       <PopularMenuSection />

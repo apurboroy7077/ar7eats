@@ -27,7 +27,7 @@ export default function RootLayout({
         <header>
           <TheNavbar />
         </header>
-        <main>{children}</main>
+        <main className=" min-h-[60vh]">{children}</main>
         <TheFooter />
       </body>
     </html>

@@ -1,6 +1,18 @@
-import React from "react";
+"use client";
+import { LOCALSTORAGE_USERDATA_KEYNAME } from "@/data/Variables";
+import { userDataType } from "@/data/types";
+import React, { useEffect, useState } from "react";
 
 const HomepageSection1 = () => {
+  let [userName, setUserName] = useState("");
+  useEffect(() => {
+    let userData = localStorage.getItem(LOCALSTORAGE_USERDATA_KEYNAME);
+    if (userData) {
+      let parsedUserData = JSON.parse(userData) as userDataType;
+      let { name } = parsedUserData;
+      setUserName(name);
+    }
+  }, []);
   return (
     <section className=" overflow-hidden lg:pt-10 bg-gradient-to-b from-[#F9DEDD] to-[white] md:px-[3rem] lg:px-[7vw] ">
       <div className="pt-5 md:flex items-center justify-between lg:gap-10 lg:max-w-[80rem] lg:m-auto">
@@ -9,6 +21,7 @@ const HomepageSection1 = () => {
             Best Restaurent In <span className="text-[#F54748] ">Town.</span>
           </div>
           <div className="text-sm lg:text-xl text-center lg:text-left mt-3 opacity-[0.75] ">
+            {userName && <span className=" font-bold">Hello {userName} ,</span>}{" "}
             We provide best food in town, we also provide Home Delivery
             Services.
           </div>

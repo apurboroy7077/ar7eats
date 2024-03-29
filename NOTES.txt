@@ -1,1 +1,4 @@
 1. Create Homepage.
+2. Added Functionality so that no one can access login page when they are already logged in
+3. Till BasicAPI.tsx
+4. Logout Functionality

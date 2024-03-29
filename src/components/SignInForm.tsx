@@ -1,15 +1,27 @@
 "use client";
-import { LOCALSTORAGE_AUTHTOKEN_KEYNAME, SIGN_IN_API } from "@/data/Variables";
+import {
+  LOCALSTORAGE_AUTHTOKEN_KEYNAME,
+  LOCALSTORAGE_USERDATA_KEYNAME,
+  SIGN_IN_API,
+} from "@/data/Variables";
+import { userDataType } from "@/data/types";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const SignInForm = () => {
   let router = useRouter();
   let [fetchingMessage, setFetchingMessage] = useState("");
   let [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    let userData = localStorage.getItem(LOCALSTORAGE_USERDATA_KEYNAME);
+    if (userData) {
+      router.push("/");
+    }
+  }, []);
   let handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let formData = new FormData(e.currentTarget);

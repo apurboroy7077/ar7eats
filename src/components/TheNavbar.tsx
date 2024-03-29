@@ -1,9 +1,20 @@
 "use client";
+import { LOCALSTORAGE_USERDATA_KEYNAME } from "@/data/Variables";
 import linkData from "@/data/linkData";
+import { userDataType } from "@/data/types";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const TheNavbar = () => {
+  let [userName, setUserName] = useState("");
+  useEffect(() => {
+    let userData = localStorage.getItem(LOCALSTORAGE_USERDATA_KEYNAME);
+    if (userData) {
+      let parsedUserData = JSON.parse(userData) as userDataType;
+      let { name } = parsedUserData;
+      setUserName(name);
+    }
+  }, []);
   let handleMenuClick = () => {
     let navList = document.getElementsByClassName("mobile-nav-list")[0];
     if (navList.classList.contains("h-[170px]")) {
@@ -69,6 +80,12 @@ const TheNavbar = () => {
       <ul className="mt-3 h-[0px] overflow-y-auto mobile-nav-list transition-all-halfsecond grid md:hidden">
         {linkData.map((data) => {
           let { title, hrefValue } = data;
+          if (title === "Sign In") {
+            if (userName) {
+              title = `Logout(${userName})`;
+              hrefValue = `/log-out`;
+            }
+          }
           return (
             <li
               key={Math.random()}

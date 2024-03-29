@@ -1,15 +1,25 @@
 "use client";
-import { SIGN_IN_PAGE_ADDRESS, SIGN_UP_API } from "@/data/Variables";
+import {
+  LOCALSTORAGE_USERDATA_KEYNAME,
+  SIGN_IN_PAGE_ADDRESS,
+  SIGN_UP_API,
+} from "@/data/Variables";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const SignUpForm = () => {
   let router = useRouter();
   let [fetchingMessage, setFetchingMessage] = useState("");
   let [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    let userData = localStorage.getItem(LOCALSTORAGE_USERDATA_KEYNAME);
+    if (userData) {
+      router.push("/");
+    }
+  }, []);
   let handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let formData = new FormData(e.currentTarget);
