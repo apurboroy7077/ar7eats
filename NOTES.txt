@@ -2,3 +2,7 @@
 2. Added Functionality so that no one can access login page when they are already logged in
 3. Till BasicAPI.tsx
 4. Logout Functionality
+5. Till Reservation
+6. Till Booked Tables - design undone
+7. Till Cancel Reservation API
+8. Till Cancel Reservation Design

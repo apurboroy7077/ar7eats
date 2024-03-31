@@ -5,6 +5,9 @@ const JWT_SECRET_KEY = "ar7eats-grilled-chicken";
 const LOCALSTORAGE_AUTHTOKEN_KEYNAME = "ar7eats-authtoken";
 const GET_USER_INFO_API = "/get-user-info/api";
 const LOCALSTORAGE_USERDATA_KEYNAME = "ar7eats-locally-saved-userdata";
+const BOOK_RESERVATION_API = "/reservation/book/api";
+const GET_BOOKED_TABLE_DATA_API = "/booked-tables/api";
+const CANCEL_RESERVATION_API = "/reservation/cancel/api";
 export {
   SIGN_UP_API,
   SIGN_IN_PAGE_ADDRESS,
@@ -13,4 +16,7 @@ export {
   LOCALSTORAGE_AUTHTOKEN_KEYNAME,
   GET_USER_INFO_API,
   LOCALSTORAGE_USERDATA_KEYNAME,
+  BOOK_RESERVATION_API,
+  GET_BOOKED_TABLE_DATA_API,
+  CANCEL_RESERVATION_API,
 };

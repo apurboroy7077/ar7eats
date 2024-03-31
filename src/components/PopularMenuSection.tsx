@@ -2,6 +2,7 @@ import categoryData from "@/data/CategoryData";
 import foodData from "@/data/foodData";
 import GenerateStars from "@/utils/GenerateStars";
 import React from "react";
+import FoodList from "./FoodList";
 
 const PopularMenuSection = () => {
   return (
@@ -23,36 +24,7 @@ const PopularMenuSection = () => {
             );
           })}
         </div>
-        <ul className="mt-5 md:mt-16 grid grid-cols-2 lg:grid-cols-3 gap-5 md:gap-16 ">
-          {foodData.map((data) => {
-            let { name, imageSrc, description, rating } = data;
-            return (
-              <li key={Math.random()} className="text-center">
-                <div>
-                  <img src={imageSrc} alt={name} />
-                </div>
-                <div className="text-sm md:text-lg font-medium ">{name}</div>
-                <div className=" mt-1 text-[0.6rem]  md:text-sm  opacity-[0.6]">
-                  {description}
-                </div>
-                <div className="flex justify-center mt-1 md:mt-3">
-                  <GenerateStars
-                    rating={rating}
-                    classes={"w-[1rem] md:w-[1.3rem]"}
-                  />
-                </div>
-                <div className="flex gap-2 md:gap-4 items-center justify-center mt-2 md:mt-4">
-                  <div className="font-medium text-sm md:text-lg">$12.05</div>
-                  <div>
-                    <button className="text-xs md:text-sm font-medium rounded bg-[#F54748] text-white px-2 py-1 active:scale-[0.95]">
-                      Order Now
-                    </button>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        <FoodList />
         <div className="flex justify-center mt-5 md:mt-10 lg:mt-24">
           <ul className="flex gap-1 md:gap-3">
             {Array.from({ length: 6 }).map((data, index) => {
