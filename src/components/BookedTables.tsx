@@ -35,7 +35,9 @@ const BookedTables = () => {
       <div>
         <ul>
           {bookedTables.map((data) => {
-            return <TablesSingleList data={data} />;
+            return (
+              <TablesSingleList key={Math.random().toString()} data={data} />
+            );
           })}
         </ul>
       </div>
