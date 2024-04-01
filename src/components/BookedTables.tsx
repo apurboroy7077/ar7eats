@@ -9,9 +9,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CancelReservationPopup from "./CancelReservationPopup";
 import TablesSingleList from "./TablesSingleList";
+import useReservation from "@/utils/ZustandReservation";
 
 const BookedTables = () => {
-  const [bookedTables, setBookedTables] = useState([] as savedTablesData);
+  const bookedTablesData = useReservation((state: any) => state.bookedTables);
+  const setBookedTablesData = useReservation(
+    (state: any) => state.setBookedTablesData
+  );
   useEffect(() => {
     let authToken = localStorage.getItem(LOCALSTORAGE_AUTHTOKEN_KEYNAME);
     if (authToken) {
@@ -19,7 +23,7 @@ const BookedTables = () => {
         .post(GET_BOOKED_TABLE_DATA_API, { authToken })
         .then((response) => {
           const serverData = response.data.data;
-          setBookedTables(serverData);
+          setBookedTablesData(serverData);
         })
         .catch((error) => {
           console.log(error);
@@ -29,19 +33,26 @@ const BookedTables = () => {
 
   return (
     <>
-      <div className="text-center lg:text-left text-2xl lg:text-5xl font-bold mb-8">
-        Booked Tables
-      </div>
-      <div>
-        <ul>
-          {bookedTables.map((data) => {
-            return (
-              <TablesSingleList key={Math.random().toString()} data={data} />
-            );
-          })}
-        </ul>
-      </div>
-      {/* <CancelReservationPopup /> */}
+      {bookedTablesData.length > 0 && (
+        <>
+          <div className="text-center lg:text-left text-2xl lg:text-5xl font-bold mb-8">
+            Booked Tables
+          </div>
+          <div>
+            <ul>
+              {bookedTablesData.map((data: any) => {
+                return (
+                  <TablesSingleList
+                    key={Math.random().toString()}
+                    data={data}
+                  />
+                );
+              })}
+            </ul>
+          </div>
+          <CancelReservationPopup />
+        </>
+      )}
     </>
   );
 };

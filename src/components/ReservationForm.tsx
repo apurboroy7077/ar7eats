@@ -4,6 +4,7 @@ import {
   BOOK_RESERVATION_API,
   LOCALSTORAGE_AUTHTOKEN_KEYNAME,
 } from "@/data/Variables";
+import useReservation from "@/utils/ZustandReservation";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -11,6 +12,9 @@ const ReservationForm = () => {
   const [loginStatus, setLoginStatus] = useState("NOTLOGGEDIN");
   const [serverMessage, setServerMessage] = useState("");
   const [fetchingStatus, setFetchingStatus] = useState("STOPPED");
+  const fetchBookedTables = useReservation(
+    (state: any) => state.fetchBookedTablesData
+  );
   useEffect(() => {
     const authToken = localStorage.getItem(LOCALSTORAGE_AUTHTOKEN_KEYNAME);
     if (authToken) {
@@ -32,7 +36,11 @@ const ReservationForm = () => {
       .then((response) => {
         setFetchingStatus("SUCCESS");
         setServerMessage("");
+        fetchBookedTables();
         console.log(response);
+        setTimeout(() => {
+          setFetchingStatus("STOPPED");
+        }, 2000);
       })
       .catch((error) => {
         setFetchingStatus("STOPPED");

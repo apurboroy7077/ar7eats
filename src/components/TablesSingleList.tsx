@@ -3,6 +3,7 @@ import {
   LOCALSTORAGE_AUTHTOKEN_KEYNAME,
 } from "@/data/Variables";
 import { savedSingleTableData } from "@/data/types";
+import { useCancelReservation } from "@/utils/ZustandCancelReservationStore";
 import axios from "axios";
 import React from "react";
 type propsType = {
@@ -11,19 +12,15 @@ type propsType = {
 const TablesSingleList = (props: propsType) => {
   const { data } = props;
   const { id, time, sits, date } = data;
-  const handleCancelReservation = (id: string) => {
-    const authToken = localStorage.getItem(LOCALSTORAGE_AUTHTOKEN_KEYNAME);
-    const dataForServer = { id, authToken };
-
-    axios
-      .post(CANCEL_RESERVATION_API, dataForServer)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const openPopup = useCancelReservation((state: any) => state.openPopup);
+  const setReservationDetails = useCancelReservation(
+    (state: any) => state.setReservationDetails
+  );
+  const handleOpenPopup = () => {
+    setReservationDetails(data);
+    openPopup();
   };
+
   return (
     <li
       key={id}
@@ -37,9 +34,7 @@ const TablesSingleList = (props: propsType) => {
       <div>
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300"
-          onClick={() => {
-            handleCancelReservation(id);
-          }}
+          onClick={handleOpenPopup}
         >
           Cancel
         </button>

@@ -6,3 +6,4 @@
 6. Till Booked Tables - design undone
 7. Till Cancel Reservation API
 8. Till Cancel Reservation Design
+9. Booked Table Done

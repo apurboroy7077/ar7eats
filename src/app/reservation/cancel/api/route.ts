@@ -1,6 +1,7 @@
 import { JWT_SECRET_KEY } from "@/data/Variables";
 import jwt from "@/utils/JWT";
 import { myPool } from "@/utils/PostgresqlConfiguration";
+import WaitingFunction from "@/utils/WaitFunction";
 
 const POST = async (req: Request) => {
   try {
@@ -13,6 +14,7 @@ const POST = async (req: Request) => {
       id,
       email,
     ]);
+    WaitingFunction(2);
     return Response.json({ message: "Deleted Successfully" }, { status: 200 });
   } catch (error) {
     console.log(error);
