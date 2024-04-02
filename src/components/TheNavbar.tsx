@@ -1,5 +1,8 @@
 "use client";
-import { LOCALSTORAGE_USERDATA_KEYNAME } from "@/data/Variables";
+import {
+  CART_PAGE_LINK,
+  LOCALSTORAGE_USERDATA_KEYNAME,
+} from "@/data/Variables";
 import linkData from "@/data/linkData";
 import { userDataType } from "@/data/types";
 import Link from "next/link";
@@ -64,14 +67,16 @@ const TheNavbar = () => {
               className="w-[3rem] menu-image md:hidden"
             />
           </button>
-          <button className="hidden md:block bg-[white] p-3 rounded-full active:scale-[0.95]">
-            <img
-              src="/images/icons/cart.png"
-              className=" w-[2.2rem] lg:w-[3rem]"
-            />
-          </button>
-          <Link href="/sign-in">
-            <button className="hidden md:block bg-[#F54748] text-white px-3 py-1 rounded lg:text-lg active:scale-[0.95]">
+          <Link className="hidden md:block" href={CART_PAGE_LINK}>
+            <button className=" bg-[white] p-3 rounded-full active:scale-[0.95]">
+              <img
+                src="/images/icons/cart.png"
+                className=" w-[2.2rem] lg:w-[3rem]"
+              />
+            </button>
+          </Link>
+          <Link className="hidden md:block" href="/sign-in">
+            <button className=" bg-[#F54748] text-white px-3 py-1 rounded lg:text-lg active:scale-[0.95]">
               Log In
             </button>
           </Link>

@@ -6,11 +6,16 @@ import {
   LOCALSTORAGE_USERDATA_KEYNAME,
 } from "@/data/Variables";
 import axios from "axios";
+import useCart from "@/utils/ZustandCart";
 
 const BasicApiCalls = () => {
+  const loadCartData = useCart((state: any) => state.loadCartData);
+  // LOAD CART DATA ON RELOAD ---------------------------------------------------------------------------------
+  useEffect(() => {
+    loadCartData();
+  }, []);
   useEffect(() => {
     let authToken = localStorage.getItem(LOCALSTORAGE_AUTHTOKEN_KEYNAME);
-
     if (authToken !== null) {
       let headers = {
         Authorization: authToken,

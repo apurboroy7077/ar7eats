@@ -1,12 +1,27 @@
 "use client";
-import { foodDataType } from "@/data/types";
+import { cartDataType, foodDataType } from "@/data/types";
 import GenerateStars from "@/utils/GenerateStars";
+import useCart from "@/utils/ZustandCart";
 type propsType = {
   data: foodDataType;
 };
 const FoodListItem = (props: propsType) => {
   const { data } = props;
   const { name, imageSrc, description, rating, id } = data;
+  const addToCart = useCart((state: any) => state.addToCart);
+  const cartData: cartDataType = useCart((state: any) => state.cartData);
+  let existsInCartStatus = "DOES_NOT_EXISTS";
+  for (let i = 0; i < cartData.length; i++) {
+    let data = cartData[i];
+    if (data.id === id) {
+      existsInCartStatus = "EXISTS";
+    }
+  }
+
+  const handleOrder = () => {
+    addToCart(id);
+  };
+
   return (
     <li key={Math.random()} className="text-center">
       <div>
@@ -22,9 +37,24 @@ const FoodListItem = (props: propsType) => {
       <div className="flex gap-2 md:gap-4 items-center justify-center mt-2 md:mt-4">
         <div className="font-medium text-sm md:text-lg">$12.05</div>
         <div>
-          <button className="text-xs md:text-sm font-medium rounded bg-[#F54748] text-white px-2 py-1 active:scale-[0.95]">
-            Order Now
-          </button>
+          {existsInCartStatus === "DOES_NOT_EXISTS" && (
+            <button
+              onClick={handleOrder}
+              className="text-xs md:text-sm font-medium rounded bg-[#F54748] text-white px-2 py-1 active:scale-[0.95]"
+            >
+              Add to Cart
+            </button>
+          )}
+          {existsInCartStatus === "EXISTS" && (
+            <button className="text-xs md:text-sm font-medium rounded border-[2px] border-black px-2 py-1 active:scale-[0.95]">
+              Added to Cart{" "}
+              <img
+                className="inline ml-1 w-[1.2rem]"
+                src="/images/icons/checked.png"
+                alt=""
+              />
+            </button>
+          )}
         </div>
       </div>
     </li>

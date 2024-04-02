@@ -7,3 +7,5 @@
 7. Till Cancel Reservation API
 8. Till Cancel Reservation Design
 9. Booked Table Done
+10. Till FoodListItem Component
+11. Till CartListItem

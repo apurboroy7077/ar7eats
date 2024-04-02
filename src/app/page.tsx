@@ -11,7 +11,6 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-      <BasicApiCalls />
       <HomepageSection1 />
       <HomepageSection2 />
       <PopularMenuSection />

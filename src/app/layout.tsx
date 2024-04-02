@@ -4,6 +4,7 @@ import TheNavbar from "@/components/TheNavbar";
 import TheFooter from "@/components/TheFooter";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import BasicApiCalls from "@/components/BasicApiCalls";
 
 export const metadata: Metadata = {
   title: "AR7Eats",
@@ -24,6 +25,7 @@ export default function RootLayout({
       </head>
       <body>
         <ToastContainer />
+        <BasicApiCalls />
         <header>
           <TheNavbar />
         </header>

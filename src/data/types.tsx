@@ -30,10 +30,20 @@ type foodDataType = {
   rating: string;
   id: string;
 };
+type cartDataType = {
+  id: string;
+  amount: number;
+}[];
+type cartSingleItemDataType = {
+  id: string;
+  amount: number;
+};
 export type {
   userDataType,
   reservationReceivedDataType,
   savedTablesData,
   foodDataType,
   savedSingleTableData,
+  cartDataType,
+  cartSingleItemDataType,
 };
