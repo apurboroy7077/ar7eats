@@ -72,5 +72,22 @@ const useCart = create((set) => ({
       return newState;
     });
   },
+  deleteFromCart: (id: string) => {
+    set((state: any) => {
+      const updatedCartData = [];
+      for (let i = 0; i < state.cartData.length; i++) {
+        let cartItem = state.cartData[i];
+        if (cartItem.id !== id) {
+          updatedCartData.push(cartItem);
+        }
+      }
+      const newState = { ...state, cartData: updatedCartData };
+      localStorage.setItem(
+        CARTDATA_KEYNAME_IN_LOCALSTORAGE,
+        JSON.stringify(updatedCartData)
+      );
+      return newState;
+    });
+  },
 }));
 export default useCart;

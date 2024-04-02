@@ -25,10 +25,11 @@ type savedSingleTableData = {
 
 type foodDataType = {
   name: string;
-  imageSrc: string;
   description: string;
   rating: string;
+  price: string;
   id: string;
+  imageSrc: string;
 };
 type cartDataType = {
   id: string;

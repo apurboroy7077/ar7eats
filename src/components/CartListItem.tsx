@@ -1,4 +1,7 @@
-import { GET_FOOD_DATA_API } from "@/data/Variables";
+import {
+  CARTDATA_SINGLE_ITEM_DATA_KEYNAME_IN_LOCALSTORAGE,
+  GET_FOOD_DATA_API,
+} from "@/data/Variables";
 import {
   cartDataType,
   cartSingleItemDataType,
@@ -23,6 +26,7 @@ const CartListItem = (props: propsType) => {
   let amount = 0;
   const increaseAmount = useCart((state: any) => state.increaseAmount);
   const decreaseAmount = useCart((state: any) => state.decreaseAmount);
+  const deleteFromCart = useCart((state: any) => state.deleteFromCart);
   const cartData: cartDataType = useCart((state: any) => state.cartData);
   for (let i = 0; i < cartData.length; i++) {
     let data = cartData[i];
@@ -32,18 +36,46 @@ const CartListItem = (props: propsType) => {
   }
 
   useEffect(() => {
-    setFetchingStatus("LOADING");
-    axios
-      .post(GET_FOOD_DATA_API, { id })
-      .then((response) => {
-        setFetchingStatus("LOADED");
-        const receivedData = response.data.data;
-        setFoodData(receivedData);
-      })
-      .catch((error) => {
-        setFetchingStatus("STOPPED");
-        console.log(error);
-      });
+    let savedCartData = localStorage.getItem(
+      CARTDATA_SINGLE_ITEM_DATA_KEYNAME_IN_LOCALSTORAGE(id)
+    );
+    if (savedCartData) {
+      setFetchingStatus("LOADED");
+      let processedSavedCartData = JSON.parse(savedCartData);
+      setFoodData(processedSavedCartData);
+      axios
+        .post(GET_FOOD_DATA_API, { id })
+        .then((response) => {
+          const receivedData = response.data.data;
+          setFoodData(receivedData);
+          localStorage.setItem(
+            CARTDATA_SINGLE_ITEM_DATA_KEYNAME_IN_LOCALSTORAGE(id),
+            JSON.stringify(receivedData)
+          );
+        })
+        .catch((error) => {
+          setFetchingStatus("STOPPED");
+          console.log(error);
+        });
+    }
+    if (!savedCartData) {
+      setFetchingStatus("LOADING");
+      axios
+        .post(GET_FOOD_DATA_API, { id })
+        .then((response) => {
+          setFetchingStatus("LOADED");
+          const receivedData = response.data.data;
+          setFoodData(receivedData);
+          localStorage.setItem(
+            CARTDATA_SINGLE_ITEM_DATA_KEYNAME_IN_LOCALSTORAGE(id),
+            JSON.stringify(receivedData)
+          );
+        })
+        .catch((error) => {
+          setFetchingStatus("STOPPED");
+          console.log(error);
+        });
+    }
   }, []);
   const handleAmountIncrease = () => {
     increaseAmount(id);
@@ -51,15 +83,18 @@ const CartListItem = (props: propsType) => {
   const handleAmountDecrease = () => {
     decreaseAmount(id);
   };
+  const handleDeleteFromCart = () => {
+    deleteFromCart(id);
+  };
   return (
     <>
       <li>
-        <div className="flex gap-3 justify-between">
+        <div className="flex gap-3 justify-between items-center">
           {fetchingStatus === "LOADED" && (
             <>
               <div>
                 <img
-                  className="w-[5rem] md:w-[15rem] h-[5rem] md:h-[10rem] object-cover  rounded"
+                  className="w-[11rem] md:w-[15rem] h-[8rem] md:h-[10rem] object-cover  rounded"
                   src={"/images/food/burger.png"}
                   alt=""
                 />
@@ -67,23 +102,33 @@ const CartListItem = (props: propsType) => {
               <div className=" w-[40%] flex items-center justify-center">
                 <div className="flex flex-col gap-1">
                   <div className="text-xs md:text-2xl  font-medium">
-                    {foodData.name}
+                    {foodData?.name}
                   </div>
-                  <div className="flex">
-                    <GenerateStars
-                      rating={foodData.rating}
-                      classes="w-[0.8rem] md:w-[1.3rem]"
-                    />
-                  </div>
+                  {foodData && (
+                    <div className="flex">
+                      <GenerateStars
+                        rating={foodData.rating}
+                        classes="w-[0.8rem] md:w-[1.3rem]"
+                      />
+                    </div>
+                  )}
                   <div className="text-[0.5rem] md:text-base opacity-[0.6] font-medium">
-                    {foodData.description}
+                    {foodData?.description}
+                  </div>
+                  <div>
+                    <button
+                      className=" w-[3.5rem] lg:w-[8rem] text-xs font-medium bg-[#F54748] text-white px-1 py-1 rounded lg:text-xl active:scale-[0.95]"
+                      onClick={handleDeleteFromCart}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>
               <div className="flex items-center justify-center">
                 <div className="flex items-center gap-1 md:gap-3">
                   <div className="text-sm md:text-xl  text-[#3AB574] font-bold">
-                    $20
+                    {(Number(foodData?.price) * Number(amount)).toFixed(2)}
                   </div>
                   <div className="flex flex-col items-center justify-center">
                     <div>
@@ -119,7 +164,7 @@ const CartListItem = (props: propsType) => {
               type="submit"
               className="border-[black] border-[1px] w-full rounded px-2 py-1 md:py-3  bg-[#F54748] text-[white] font-bold active:scale-[0.95]"
             >
-              LOGING IN{" "}
+              Loading{" "}
               <img
                 src="/images/icons/spinner-2.png"
                 className=" inline w-[1.5rem] animate-spin"

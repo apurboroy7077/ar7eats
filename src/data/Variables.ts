@@ -11,6 +11,10 @@ const CANCEL_RESERVATION_API = "/reservation/cancel/api";
 const CART_PAGE_LINK = "/cart";
 const CARTDATA_KEYNAME_IN_LOCALSTORAGE = "ar7eats-cart-data";
 const GET_FOOD_DATA_API = "/get-food-data/api";
+const CARTDATA_SINGLE_ITEM_DATA_KEYNAME_IN_LOCALSTORAGE = (id: string) => {
+  return `ar7eats-cart-data-of-${id}`;
+};
+
 export {
   SIGN_UP_API,
   SIGN_IN_PAGE_ADDRESS,
@@ -25,4 +29,5 @@ export {
   CART_PAGE_LINK,
   CARTDATA_KEYNAME_IN_LOCALSTORAGE,
   GET_FOOD_DATA_API,
+  CARTDATA_SINGLE_ITEM_DATA_KEYNAME_IN_LOCALSTORAGE,
 };

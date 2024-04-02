@@ -1,4 +1,5 @@
 import CartList from "@/components/CartList";
+import Checkout from "@/components/Checkout";
 import GenerateStars from "@/utils/GenerateStars";
 import Image from "next/image";
 import React from "react";
@@ -13,6 +14,7 @@ const page = () => {
         <div className="mt-5 md:mt-10">
           <CartList />
         </div>
+        <Checkout />
       </div>
     </section>
   );
