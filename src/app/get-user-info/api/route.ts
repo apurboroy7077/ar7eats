@@ -12,7 +12,7 @@ const GET = async (request: Request) => {
     ]);
     userData = userData.rows[0];
     delete userData.password;
-    console.log(userData);
+
     return Response.json(
       {
         userData: userData,

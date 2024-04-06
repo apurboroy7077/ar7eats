@@ -1,5 +1,6 @@
 import CartList from "@/components/CartList";
 import Checkout from "@/components/Checkout";
+import ConfirmOrderPopup from "@/components/ConfirmOrderPopup";
 import GenerateStars from "@/utils/GenerateStars";
 import Image from "next/image";
 import React from "react";
@@ -15,6 +16,7 @@ const page = () => {
           <CartList />
         </div>
         <Checkout />
+        <ConfirmOrderPopup />
       </div>
     </section>
   );

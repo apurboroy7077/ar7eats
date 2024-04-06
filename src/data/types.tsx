@@ -39,6 +39,19 @@ type cartSingleItemDataType = {
   id: string;
   amount: number;
 };
+type confirmOrderDetailsDataType = {
+  totalPrice: string;
+  productsData: {
+    name: string;
+    description: string;
+    rating: string;
+    price: string;
+    id: string;
+    imageSrc: string;
+    amount: string;
+    totalPriceOfThisProduct: string;
+  }[];
+};
 export type {
   userDataType,
   reservationReceivedDataType,
@@ -47,4 +60,5 @@ export type {
   savedSingleTableData,
   cartDataType,
   cartSingleItemDataType,
+  confirmOrderDetailsDataType,
 };

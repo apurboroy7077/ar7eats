@@ -88,36 +88,36 @@ const CartListItem = (props: propsType) => {
   };
   return (
     <>
-      <li>
+      <li className="w-full">
         <div className="flex gap-3 justify-between items-center">
           {fetchingStatus === "LOADED" && (
             <>
               <div>
                 <img
-                  className="w-[11rem] md:w-[15rem] h-[8rem] md:h-[10rem] object-cover  rounded"
+                  className="w-[11rem] md:w-[15rem] lg:w-[25rem] h-[8rem] md:h-[10rem] lg:h-[15rem] object-cover  rounded"
                   src={"/images/food/burger.png"}
                   alt=""
                 />
               </div>
               <div className=" w-[40%] flex items-center justify-center">
-                <div className="flex flex-col gap-1">
-                  <div className="text-xs md:text-2xl  font-medium">
+                <div className="flex flex-col gap-1 lg:gap-3">
+                  <div className="text-xs md:text-2xl lg:text-3xl  font-medium">
                     {foodData?.name}
                   </div>
                   {foodData && (
                     <div className="flex">
                       <GenerateStars
                         rating={foodData.rating}
-                        classes="w-[0.8rem] md:w-[1.3rem]"
+                        classes="w-[0.8rem] md:w-[1.3rem] lg:w-[1.5rem]"
                       />
                     </div>
                   )}
-                  <div className="text-[0.5rem] md:text-base opacity-[0.6] font-medium">
+                  <div className="text-[0.5rem] md:text-base lg:text-lg opacity-[0.6] font-medium">
                     {foodData?.description}
                   </div>
                   <div>
                     <button
-                      className=" w-[3.5rem] lg:w-[8rem] text-xs font-medium bg-[#F54748] text-white px-1 py-1 rounded lg:text-xl active:scale-[0.95]"
+                      className=" w-[3.5rem] lg:w-[8rem] text-xs font-medium bg-[#F54748] text-white px-1 py-1 rounded lg:text-2xl active:scale-[0.95]"
                       onClick={handleDeleteFromCart}
                     >
                       Delete
@@ -127,13 +127,13 @@ const CartListItem = (props: propsType) => {
               </div>
               <div className="flex items-center justify-center">
                 <div className="flex items-center gap-1 md:gap-3">
-                  <div className="text-sm md:text-xl  text-[#3AB574] font-bold">
+                  <div className="text-sm md:text-xl lg:text-2xl  text-[#3AB574] font-bold">
                     {(Number(foodData?.price) * Number(amount)).toFixed(2)}
                   </div>
                   <div className="flex flex-col items-center justify-center">
                     <div>
                       <img
-                        className="w-[1rem]"
+                        className="w-[1rem] lg:w-[1.5rem]"
                         src="/images/icons/arrow-up.svg"
                         alt=""
                         onClick={handleAmountDecrease}
@@ -141,14 +141,14 @@ const CartListItem = (props: propsType) => {
                     </div>
                     <div>
                       <input
-                        className="border-[black] font-bold text-sm md:text-lg rounded-md text-center border-[2px] h-[1.5rem] w-[2rem]"
+                        className="border-[black] font-bold text-sm md:text-lg lg:text-2xl rounded-md text-center border-[2px] h-[1.5rem] lg:h-[2.5rem] w-[2rem] lg:w-[3rem]"
                         type="text"
                         value={amount}
                       />
                     </div>
                     <div>
                       <img
-                        className="w-[1rem]"
+                        className="w-[1rem] lg:w-[1.5rem]"
                         src="/images/icons/arrow-down.svg"
                         alt=""
                         onClick={handleAmountIncrease}

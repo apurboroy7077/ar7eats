@@ -1,9 +1,16 @@
-import { CARTDATA_KEYNAME_IN_LOCALSTORAGE } from "@/data/Variables";
+import {
+  CARTDATA_KEYNAME_IN_LOCALSTORAGE,
+  GET_FOOD_DATA_API,
+} from "@/data/Variables";
+import { foodDataType } from "@/data/foodData";
 import { cartDataType } from "@/data/types";
+import axios from "axios";
 import { create } from "zustand";
 
 const useCart = create((set) => ({
   cartData: [] as cartDataType,
+  dataOfSavedCartItems: [] as foodDataType,
+  confirmOrderPopupStatus: "CLOSED",
   loadCartData: () => {
     const savedCartData = localStorage.getItem(
       CARTDATA_KEYNAME_IN_LOCALSTORAGE
@@ -86,6 +93,56 @@ const useCart = create((set) => ({
         CARTDATA_KEYNAME_IN_LOCALSTORAGE,
         JSON.stringify(updatedCartData)
       );
+      return newState;
+    });
+  },
+  loadDataOfSavedCartItems: async () => {
+    const rawCartData = localStorage.getItem(CARTDATA_KEYNAME_IN_LOCALSTORAGE);
+    if (rawCartData) {
+      const cartData = JSON.parse(rawCartData);
+      const savedCartData: any = [];
+      await new Promise((resolve, reject) => {
+        let executionNumber = 0;
+        for (let i = 0; i < cartData.length; i++) {
+          const data = cartData[i];
+          const { id } = data;
+          axios
+            .post(GET_FOOD_DATA_API, { id })
+            .then((response) => {
+              const receivedData = response.data.data;
+              savedCartData.push(receivedData);
+              executionNumber++;
+              if (executionNumber === cartData.length - 1) {
+                resolve("Fetch Successful");
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              resolve(error);
+            });
+        }
+      });
+      set((state: any) => {
+        const newState = { ...state, dataOfSavedCartItems: savedCartData };
+        return newState;
+      });
+    }
+  },
+  openConfirmOrderPopup: () => {
+    set((state: any) => {
+      const newState = { ...state, confirmOrderPopupStatus: "OPENED" };
+      return newState;
+    });
+  },
+  closeConfirmOrderPopup: () => {
+    set((state: any) => {
+      const newState = { ...state, confirmOrderPopupStatus: "CLOSED" };
+      return newState;
+    });
+  },
+  clearCart: () => {
+    set((state: any) => {
+      const newState = { ...state, cartData: [] };
       return newState;
     });
   },

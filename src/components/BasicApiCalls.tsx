@@ -9,11 +9,17 @@ import axios from "axios";
 import useCart from "@/utils/ZustandCart";
 
 const BasicApiCalls = () => {
+  const cartData = useCart((state: any) => state.cartData);
   const loadCartData = useCart((state: any) => state.loadCartData);
+  const loadDataOfSavedCartItems = useCart(
+    (state: any) => state.loadDataOfSavedCartItems
+  );
   // LOAD CART DATA ON RELOAD ---------------------------------------------------------------------------------
   useEffect(() => {
     loadCartData();
+    loadDataOfSavedCartItems();
   }, []);
+
   useEffect(() => {
     let authToken = localStorage.getItem(LOCALSTORAGE_AUTHTOKEN_KEYNAME);
     if (authToken !== null) {

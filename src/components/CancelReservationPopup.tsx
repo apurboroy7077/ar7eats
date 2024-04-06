@@ -23,9 +23,7 @@ const CancelReservationPopup = () => {
   const fetchBookedTables = useReservation(
     (state: any) => state.fetchBookedTablesData
   );
-  if (popupStatus === "CLOSED") {
-    return null;
-  }
+
   const { id, time, sits, date } = reservationDetails;
   const handleClosePopup = () => {
     closePopup();
@@ -47,6 +45,9 @@ const CancelReservationPopup = () => {
         console.log(error);
       });
   };
+  if (popupStatus === "CLOSED") {
+    return null;
+  }
   return (
     <div className="fixed top-0 bg-black bg-opacity-50 left-0 w-full  h-full flex justify-center items-center">
       <div className="w-[90%] max-w-[60rem] bg-white py-2 rounded relative">
