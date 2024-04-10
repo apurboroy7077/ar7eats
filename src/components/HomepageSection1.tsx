@@ -1,9 +1,15 @@
 "use client";
-import { LOCALSTORAGE_USERDATA_KEYNAME } from "@/data/Variables";
+import {
+  LOCALSTORAGE_USERDATA_KEYNAME,
+  MENU_ADDRESS,
+  RESERVATION_ADDRESS,
+} from "@/data/Variables";
 import { userDataType } from "@/data/types";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const HomepageSection1 = () => {
+  const router = useRouter();
   let [userName, setUserName] = useState("");
   useEffect(() => {
     let userData = localStorage.getItem(LOCALSTORAGE_USERDATA_KEYNAME);
@@ -26,10 +32,21 @@ const HomepageSection1 = () => {
             Services.
           </div>
           <div className="mt-5 text-center flex justify-center gap-3 lg:justify-start">
-            <button className=" w-[6rem] lg:w-[8rem] text-sm font-medium bg-[#F54748] text-white px-3 py-2 rounded lg:text-xl active:scale-[0.95]">
+            <button
+              onClick={() => {
+                router.push(MENU_ADDRESS);
+              }}
+              className=" w-[6rem] lg:w-[8rem] text-sm font-medium bg-[#F54748] text-white px-3 py-2 rounded lg:text-xl active:scale-[0.95]"
+            >
               Order Now
             </button>
-            <button className=" w-[6rem] lg:w-[8rem] text-sm font-medium bg-[#F9E1E1] text-[#F54748] px-3 py-2 rounded lg:text-xl active:scale-[0.95]">
+            <button
+              onClick={() => {
+                console.log(router);
+                router.push(RESERVATION_ADDRESS);
+              }}
+              className=" w-[6rem] lg:w-[8rem] text-sm font-medium bg-[#F9E1E1] text-[#F54748] px-3 py-2 rounded lg:text-xl active:scale-[0.95]"
+            >
               Reservation
             </button>
           </div>

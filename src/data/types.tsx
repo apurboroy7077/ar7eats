@@ -52,6 +52,28 @@ type confirmOrderDetailsDataType = {
     totalPriceOfThisProduct: string;
   }[];
 };
+type ordersPlacedByUserType = {
+  orderid: string;
+  useremail: string;
+  creationdate: string;
+  ordereditem: string;
+  totalprice: string;
+}[];
+type orderedItemsDataType = {
+  id: string;
+  name: string;
+  description: string;
+  rating: string;
+  price: string;
+  imagesrc: string;
+  amount: string;
+  totalPriceOfThisProduct: string;
+}[];
+type loginStatusType = "LOGGED_IN" | "NOT_LOGGED_IN";
+type paginationDataType = {
+  from: number;
+  to: number;
+};
 export type {
   userDataType,
   reservationReceivedDataType,
@@ -61,4 +83,8 @@ export type {
   cartDataType,
   cartSingleItemDataType,
   confirmOrderDetailsDataType,
+  loginStatusType,
+  ordersPlacedByUserType,
+  orderedItemsDataType,
+  paginationDataType,
 };

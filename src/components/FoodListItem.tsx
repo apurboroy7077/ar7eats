@@ -3,10 +3,18 @@ import { cartDataType, foodDataType } from "@/data/types";
 import GenerateStars from "@/utils/GenerateStars";
 import useCart from "@/utils/ZustandCart";
 type propsType = {
-  data: foodDataType;
+  data: {
+    name: string;
+    description: string;
+    rating: string;
+    price: string;
+    id: string;
+    imageSrc: string;
+  };
 };
 const FoodListItem = (props: propsType) => {
   const { data } = props;
+  console.log(data);
   const { name, imageSrc, description, rating, id } = data;
   const addToCart = useCart((state: any) => state.addToCart);
   const cartData: cartDataType = useCart((state: any) => state.cartData);

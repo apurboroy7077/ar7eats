@@ -5,6 +5,8 @@ import CartListItem from "./CartListItem";
 import useCart from "@/utils/ZustandCart";
 import { cartDataType } from "@/data/types";
 import foodData from "@/data/foodData";
+import axios from "axios";
+import { GENERATE_DATA_API } from "@/data/Variables";
 type stateType = {
   cartDate: string;
 };
@@ -35,6 +37,16 @@ const CartList = () => {
               className="  w-[5rem] md:w-[7rem] lg:w-[9rem]"
               src="/images/icons/sad-cake.png"
               alt=""
+              onClick={() => {
+                axios
+                  .post(GENERATE_DATA_API, {})
+                  .then((response) => {
+                    console.log(response);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }}
             />
           </div>
         </div>

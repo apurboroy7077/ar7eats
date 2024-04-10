@@ -3,6 +3,9 @@ import foodData from "@/data/foodData";
 import GenerateStars from "@/utils/GenerateStars";
 import React from "react";
 import FoodList from "./FoodList";
+import useProduct from "@/utils/ZustandProduct";
+import generateRanges from "@/utils/generateRanges";
+import FoodMenuPagination from "./FoodMenuPagination";
 
 const PopularMenuSection = () => {
   return (
@@ -25,20 +28,7 @@ const PopularMenuSection = () => {
           })}
         </div>
         <FoodList />
-        <div className="flex justify-center mt-5 md:mt-10 lg:mt-24">
-          <ul className="flex gap-1 md:gap-3">
-            {Array.from({ length: 6 }).map((data, index) => {
-              return (
-                <button
-                  key={Math.random()}
-                  className="bg-[#EDEDED] hover:bg-[#311F09] text-black hover:text-white  font-medium  text-[0.7rem] md:text-xl px-[0.5rem] py-[0.1rem] rounded"
-                >
-                  {index}
-                </button>
-              );
-            })}
-          </ul>
-        </div>
+        <FoodMenuPagination />
       </div>
     </section>
   );

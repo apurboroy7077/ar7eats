@@ -5,6 +5,7 @@ import {
   SIGN_IN_API,
 } from "@/data/Variables";
 import { userDataType } from "@/data/types";
+import useUser from "@/utils/ZustandUser";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -13,15 +14,17 @@ import { toast } from "react-toastify";
 
 const SignInForm = () => {
   let router = useRouter();
-  let [fetchingMessage, setFetchingMessage] = useState("");
-  let [isLoading, setIsLoading] = useState(false);
-
+  const loginStatus = useUser((state) => state.loginStatus);
   useEffect(() => {
-    let userData = localStorage.getItem(LOCALSTORAGE_USERDATA_KEYNAME);
-    if (userData) {
+    if (loginStatus === "LOGGED_IN") {
+      toast("Already Logged In!");
       router.push("/");
     }
   }, []);
+
+  let [fetchingMessage, setFetchingMessage] = useState("");
+  let [isLoading, setIsLoading] = useState(false);
+  const loginByAuthToken = useUser((state) => state.loginByAuthToken);
   let handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let formData = new FormData(e.currentTarget);
@@ -38,6 +41,7 @@ const SignInForm = () => {
         let serverMessage = response.data.message;
         let authToken = response.data.authToken;
         localStorage.setItem(LOCALSTORAGE_AUTHTOKEN_KEYNAME, authToken);
+        loginByAuthToken();
         toast(serverMessage);
         setTimeout(() => {
           router.push("/");

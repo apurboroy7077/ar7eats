@@ -2,13 +2,17 @@
 import {
   CART_PAGE_LINK,
   LOCALSTORAGE_USERDATA_KEYNAME,
+  LOGOUT_ADDRESS,
 } from "@/data/Variables";
 import linkData from "@/data/linkData";
 import { userDataType } from "@/data/types";
+import useUser from "@/utils/ZustandUser";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const TheNavbar = () => {
+  const loginStatus = useUser((state) => state.loginStatus);
+  const nameOfLoggedInUsers = useUser((state) => state.name);
   let [userName, setUserName] = useState("");
   useEffect(() => {
     let userData = localStorage.getItem(LOCALSTORAGE_USERDATA_KEYNAME);
@@ -50,6 +54,12 @@ const TheNavbar = () => {
           <ul className="flex ">
             {linkData.map((data) => {
               let { title, hrefValue } = data;
+              if (title === "Sign In") {
+                if (loginStatus === "LOGGED_IN") {
+                  title = `Logout(${nameOfLoggedInUsers})`;
+                  hrefValue = LOGOUT_ADDRESS;
+                }
+              }
               return (
                 <Link href={hrefValue} key={Math.random()}>
                   <li className="text-sm lg:text-lg font-medium  py-3 px-3 rounded-lg hover:bg-[#ecbdbb] active:scale-[0.95] text-nowrap">
@@ -75,19 +85,21 @@ const TheNavbar = () => {
               />
             </button>
           </Link>
-          <Link className="hidden md:block" href="/sign-in">
-            <button className=" bg-[#F54748] text-white px-3 py-1 rounded lg:text-lg active:scale-[0.95]">
-              Log In
-            </button>
-          </Link>
+          {loginStatus === "NOT_LOGGED_IN" && (
+            <Link className="hidden md:block" href="/sign-in">
+              <button className=" bg-[#F54748] text-white px-3 py-1 rounded lg:text-lg active:scale-[0.95]">
+                Log In
+              </button>
+            </Link>
+          )}
         </div>
       </div>
       <ul className="mt-3 h-[0px] overflow-y-auto mobile-nav-list transition-all-halfsecond grid md:hidden">
         {linkData.map((data) => {
           let { title, hrefValue } = data;
           if (title === "Sign In") {
-            if (userName) {
-              title = `Logout(${userName})`;
+            if (loginStatus === "LOGGED_IN") {
+              title = `Logout(${nameOfLoggedInUsers})`;
               hrefValue = `/log-out`;
             }
           }

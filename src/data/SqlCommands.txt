@@ -1,0 +1,9 @@
+This is used to create orders table
+
+CREATE TABLE orders(
+    orderid VARCHAR(200) PRIMARY KEY,
+    useremail VARCHAR(200),
+    creationdate VARCHAR(255),
+    ordereditem VARCHAR(2000),
+    totalprice VARCHAR(200)
+);

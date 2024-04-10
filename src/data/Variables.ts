@@ -12,10 +12,20 @@ const CART_PAGE_LINK = "/cart";
 const CARTDATA_KEYNAME_IN_LOCALSTORAGE = "ar7eats-cart-data";
 const GET_FOOD_DATA_API = "/get-food-data/api";
 const GET_FOOD_DATA_API_2 = "/get-food-data/api-2";
+const GET_FOOD_DATA_API_3 = "/get-food-data/api-3";
+const MY_ORDERS_ADDRESS = "/my-orders";
 const CARTDATA_SINGLE_ITEM_DATA_KEYNAME_IN_LOCALSTORAGE = (id: string) => {
   return `ar7eats-cart-data-of-${id}`;
 };
 const CONFIRM_ORDER_API = "/confirm-order/api";
+const GET_ORDERS_DATA_OF_SPECIFIC_USER_API =
+  "/get-orders-data-of-specific-user/api";
+const LOGOUT_ADDRESS = "/log-out";
+const RESERVATION_ADDRESS = "/reservation";
+const MENU_ADDRESS = "/menu";
+const GENERATE_DATA_API = "/generate-data/api";
+const GET_TOTAL_NUMBER_OF_FOOD_IN_DATABASE_API =
+  "/get-food-data/get_number_of_total_food/api";
 export {
   SIGN_UP_API,
   SIGN_IN_PAGE_ADDRESS,
@@ -33,4 +43,12 @@ export {
   GET_FOOD_DATA_API_2,
   CARTDATA_SINGLE_ITEM_DATA_KEYNAME_IN_LOCALSTORAGE,
   CONFIRM_ORDER_API,
+  MY_ORDERS_ADDRESS,
+  GET_ORDERS_DATA_OF_SPECIFIC_USER_API,
+  LOGOUT_ADDRESS,
+  RESERVATION_ADDRESS,
+  MENU_ADDRESS,
+  GET_FOOD_DATA_API_3,
+  GENERATE_DATA_API,
+  GET_TOTAL_NUMBER_OF_FOOD_IN_DATABASE_API,
 };

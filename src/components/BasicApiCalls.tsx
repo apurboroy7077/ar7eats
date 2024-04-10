@@ -7,18 +7,28 @@ import {
 } from "@/data/Variables";
 import axios from "axios";
 import useCart from "@/utils/ZustandCart";
+import useUser from "@/utils/ZustandUser";
+import useProduct from "@/utils/ZustandProduct";
 
 const BasicApiCalls = () => {
+  const login = useUser((state) => state.login);
   const cartData = useCart((state: any) => state.cartData);
   const loadCartData = useCart((state: any) => state.loadCartData);
   const loadDataOfSavedCartItems = useCart(
     (state: any) => state.loadDataOfSavedCartItems
+  );
+  const firstTimeLoadProductsData = useProduct(
+    (state) => state.firstTimeLoadData
+  );
+  const setTotalNumberOfProductsInDatabase = useProduct(
+    (state) => state.setTotalNumberOfProductsInDatabase
   );
   // LOAD CART DATA ON RELOAD ---------------------------------------------------------------------------------
   useEffect(() => {
     loadCartData();
     loadDataOfSavedCartItems();
   }, []);
+  // Authenticate---------------------------------------------------------------------------------------------------------
 
   useEffect(() => {
     let authToken = localStorage.getItem(LOCALSTORAGE_AUTHTOKEN_KEYNAME);
@@ -30,13 +40,20 @@ const BasicApiCalls = () => {
         .get(GET_USER_INFO_API, { headers })
         .then((response) => {
           let userData = response.data.userData;
-          let stringifiedData = JSON.stringify(userData);
-          localStorage.setItem(LOCALSTORAGE_USERDATA_KEYNAME, stringifiedData);
+          const { email, name } = userData;
+          login(email, name);
         })
         .catch((error) => {
           console.log(error);
         });
     }
+  }, []);
+
+  // loadProductsData---------------------------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    firstTimeLoadProductsData();
+    setTotalNumberOfProductsInDatabase();
   }, []);
   return <></>;
 };

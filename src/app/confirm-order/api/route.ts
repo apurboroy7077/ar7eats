@@ -3,6 +3,7 @@ import foodData from "@/data/foodData";
 import jwt from "@/utils/JWT";
 import { myPool } from "@/utils/PostgresqlConfiguration";
 import WaitingFunction from "@/utils/WaitFunction";
+import getLatestDate from "@/utils/getLatestDate";
 
 const POST = async (req: Request) => {
   try {
@@ -31,6 +32,7 @@ const POST = async (req: Request) => {
 
       matchedProducts.push(productDetails.rows[0]);
     }
+    console.log(matchedProducts);
     let totalPrice = 0;
     for (let i = 0; i < matchedProducts.length; i++) {
       const product = matchedProducts[i];
@@ -41,18 +43,24 @@ const POST = async (req: Request) => {
           const { price } = product;
           const { amount } = cartSingleData;
           totalPrice = totalPrice + Number(price) * Number(amount);
+          product.amount = amount;
+          product.totalPriceOfThisProduct = Number(price) * Number(amount);
         }
       }
     }
+    console.log(matchedProducts);
     dataForClient.orderedItem = JSON.stringify(matchedProducts);
     dataForClient.totalPrice = totalPrice;
+    const creationDate = getLatestDate();
+
     await myPool.query(
-      "INSERT INTO orders(orderedItem, totalPrice, orderId, userEmail) VALUES ($1, $2, $3, $4) RETURNING * ",
+      "INSERT INTO orders(ordereditem, totalprice, orderid, useremail, creationdate) VALUES ($1, $2, $3, $4, $5) RETURNING * ",
       [
         dataForClient.orderedItem,
         dataForClient.totalPrice,
         dataForClient.orderId,
         dataForClient.userEmail,
+        creationDate,
       ]
     );
     return Response.json({ message: "Order Successful" }, { status: 200 });

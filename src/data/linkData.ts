@@ -1,3 +1,5 @@
+import { MY_ORDERS_ADDRESS } from "./Variables";
+
 const linkData = [
   {
     title: "Home",
@@ -8,12 +10,20 @@ const linkData = [
     hrefValue: "/menu",
   },
   {
+    title: "Cart",
+    hrefValue: "/cart",
+  },
+  {
     title: "About Us",
     hrefValue: "/about-us",
   },
   {
     title: "Order Online",
     hrefValue: "/order-online",
+  },
+  {
+    title: "My Orders",
+    hrefValue: MY_ORDERS_ADDRESS,
   },
   {
     title: "Reservation",

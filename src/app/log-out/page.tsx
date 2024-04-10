@@ -3,14 +3,14 @@ import {
   LOCALSTORAGE_AUTHTOKEN_KEYNAME,
   LOCALSTORAGE_USERDATA_KEYNAME,
 } from "@/data/Variables";
+import useUser from "@/utils/ZustandUser";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();
-
+  const logoutFunction = useUser((state) => state.logout);
   const handleYes = () => {
-    localStorage.removeItem(LOCALSTORAGE_AUTHTOKEN_KEYNAME);
-    localStorage.removeItem(LOCALSTORAGE_USERDATA_KEYNAME);
+    logoutFunction();
     router.push("/");
   };
   const handleNo = () => {

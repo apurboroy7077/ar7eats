@@ -12,3 +12,6 @@
 12. Till CartListItem- Next plan Adding Checkout in Cart
 13. Till TotalPrice
 14. till confirmorderpopup
+15. till my Orders table
+16. till generate data api
+17.  till zustand loadDataAccordingPagination
