@@ -10,12 +10,13 @@ type propsType = {
     price: string;
     id: string;
     imageSrc: string;
+    category: string;
   };
 };
 const FoodListItem = (props: propsType) => {
   const { data } = props;
   console.log(data);
-  const { name, imageSrc, description, rating, id } = data;
+  const { name, imageSrc, description, rating, id, category } = data;
   const addToCart = useCart((state: any) => state.addToCart);
   const cartData: cartDataType = useCart((state: any) => state.cartData);
   let existsInCartStatus = "DOES_NOT_EXISTS";
@@ -41,6 +42,9 @@ const FoodListItem = (props: propsType) => {
       </div>
       <div className="flex justify-center mt-1 md:mt-3">
         <GenerateStars rating={rating} classes={"w-[1rem] md:w-[1.3rem]"} />
+      </div>
+      <div className=" mt-1 text-[0.6rem]  md:text-sm  opacity-[0.6]">
+        {category}
       </div>
       <div className="flex gap-2 md:gap-4 items-center justify-center mt-2 md:mt-4">
         <div className="font-medium text-sm md:text-lg">$12.05</div>

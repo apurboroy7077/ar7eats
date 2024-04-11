@@ -17,8 +17,8 @@ const BasicApiCalls = () => {
   const loadDataOfSavedCartItems = useCart(
     (state: any) => state.loadDataOfSavedCartItems
   );
-  const firstTimeLoadProductsData = useProduct(
-    (state) => state.firstTimeLoadData
+  const loadDataAccordingPagination = useProduct(
+    (state) => state.loadDataAccordingPagination
   );
   const setTotalNumberOfProductsInDatabase = useProduct(
     (state) => state.setTotalNumberOfProductsInDatabase
@@ -52,8 +52,8 @@ const BasicApiCalls = () => {
   // loadProductsData---------------------------------------------------------------------------------------------------------------
 
   useEffect(() => {
-    firstTimeLoadProductsData();
     setTotalNumberOfProductsInDatabase();
+    loadDataAccordingPagination({ from: 0, to: 20 });
   }, []);
   return <></>;
 };

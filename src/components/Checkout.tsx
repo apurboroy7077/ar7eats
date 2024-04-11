@@ -4,36 +4,34 @@ import {
   CARTDATA_KEYNAME_IN_LOCALSTORAGE,
   CONFIRM_ORDER_API,
   LOCALSTORAGE_AUTHTOKEN_KEYNAME,
+  SIGN_IN_PAGE_ADDRESS,
 } from "@/data/Variables";
 import useTotalPrice from "@/utils/TotalPriceInCart";
 
 import useCart from "@/utils/ZustandCart";
+import useUser from "@/utils/ZustandUser";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const Checkout = () => {
+  const router = useRouter();
   const cartData = useCart((state: any) => state.cartData);
   const openConfirmOrderPopup = useCart(
     (state: any) => state.openConfirmOrderPopup
   );
+  const loginStatus = useUser((state) => state.loginStatus);
   const handleClickOrder = () => {
-    openConfirmOrderPopup();
-  };
-  const handleConfirmOrder = () => {
-    const cartData = localStorage.getItem(CARTDATA_KEYNAME_IN_LOCALSTORAGE);
-    const authToken = localStorage.getItem(LOCALSTORAGE_AUTHTOKEN_KEYNAME);
-
-    if (cartData) {
-      const processedCartData = JSON.parse(cartData);
-
-      const dataForServer = { processedCartData, authToken };
-      axios
-        .post(CONFIRM_ORDER_API, dataForServer)
-        .then((response) => {})
-        .catch((error) => {
-          console.log(error);
-        });
+    if (loginStatus === "LOGGED_IN") {
+      openConfirmOrderPopup();
+    } else if (loginStatus === "NOT_LOGGED_IN") {
+      toast("Please Login to Place Order");
+      setTimeout(() => {
+        router.push(SIGN_IN_PAGE_ADDRESS);
+      }, 2000);
     }
   };
+
   const theTotalPrice = useTotalPrice();
   if (cartData.length < 1) {
     return null;

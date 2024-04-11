@@ -1,6 +1,6 @@
 let categoryData = [
   {
-    name: "All Category",
+    name: "All Categories",
   },
   {
     name: "Lunch",

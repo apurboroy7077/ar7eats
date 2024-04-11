@@ -1,10 +1,16 @@
 import {
   GET_FOOD_DATA_API_3,
+  GET_FOOD_DATA_BASED_ON_CATEGORY_API,
   GET_TOTAL_NUMBER_OF_FOOD_IN_DATABASE_API,
 } from "@/data/Variables";
-import { foodDataType, paginationDataType } from "@/data/types";
+import {
+  categoryNameType,
+  foodDataType,
+  paginationDataType,
+} from "@/data/types";
 import axios from "axios";
 import { create } from "zustand";
+
 type useProductType = {
   productsData: foodDataType[];
   productsDataShown: foodDataType[];
@@ -12,6 +18,8 @@ type useProductType = {
   setTotalNumberOfProductsInDatabase: () => void;
   firstTimeLoadData: () => void;
   loadDataAccordingPagination: (data: paginationDataType) => void;
+  currentCategory: categoryNameType;
+  selectCategory: (categoryName: categoryNameType) => void;
 };
 const useProduct = create<useProductType>((set) => {
   return {
@@ -49,6 +57,25 @@ const useProduct = create<useProductType>((set) => {
           const receivedData = response.data.data;
           set((state) => {
             return { ...state, productsDataShown: receivedData };
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    currentCategory: "All Categories" as categoryNameType,
+    selectCategory: (categoryName: categoryNameType) => {
+      axios
+        .post(GET_FOOD_DATA_BASED_ON_CATEGORY_API, { categoryName })
+        .then((response) => {
+          const receivedData = response.data.data;
+          console.log(receivedData);
+          set((state) => {
+            return {
+              ...state,
+              productsDataShown: receivedData,
+              currentCategory: categoryName,
+            };
           });
         })
         .catch((error) => {

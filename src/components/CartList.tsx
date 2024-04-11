@@ -6,7 +6,7 @@ import useCart from "@/utils/ZustandCart";
 import { cartDataType } from "@/data/types";
 import foodData from "@/data/foodData";
 import axios from "axios";
-import { GENERATE_DATA_API } from "@/data/Variables";
+import { GENERATE_DATA_API, UPDATE_DATABASE_API_1 } from "@/data/Variables";
 type stateType = {
   cartDate: string;
 };
@@ -39,7 +39,7 @@ const CartList = () => {
               alt=""
               onClick={() => {
                 axios
-                  .post(GENERATE_DATA_API, {})
+                  .post(UPDATE_DATABASE_API_1, {})
                   .then((response) => {
                     console.log(response);
                   })

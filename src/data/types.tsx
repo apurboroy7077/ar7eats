@@ -23,14 +23,6 @@ type savedSingleTableData = {
   time: string;
 };
 
-type foodDataType = {
-  name: string;
-  description: string;
-  rating: string;
-  price: string;
-  id: string;
-  imageSrc: string;
-};
 type cartDataType = {
   id: string;
   amount: number;
@@ -74,6 +66,22 @@ type paginationDataType = {
   from: number;
   to: number;
 };
+type categoryNameType =
+  | "Lunch"
+  | "Dinner"
+  | "Dessert"
+  | "Drink"
+  | "All Categories";
+
+type foodDataType = {
+  name: string;
+  description: string;
+  rating: string;
+  price: string;
+  id: string;
+  imageSrc: string;
+  category: categoryNameType;
+};
 export type {
   userDataType,
   reservationReceivedDataType,
@@ -87,4 +95,5 @@ export type {
   ordersPlacedByUserType,
   orderedItemsDataType,
   paginationDataType,
+  categoryNameType,
 };
