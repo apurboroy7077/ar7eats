@@ -46,11 +46,11 @@ const TheNavbar = () => {
             <img
               src="/images/icons/logo.png"
               alt="website logo"
-              className="w-[3rem] lg:w-[5rem] active:scale-[0.95]"
+              className="min-w-[3rem] w-[3rem] lg:w-[5rem] active:scale-[0.95]"
             />
           </Link>
         </div>
-        <div className="hidden md:block ">
+        <div className="hidden md:block overflow-y-auto">
           <ul className="flex ">
             {linkData.map((data) => {
               let { title, hrefValue } = data;
@@ -58,6 +58,11 @@ const TheNavbar = () => {
                 if (loginStatus === "LOGGED_IN") {
                   title = `Logout(${nameOfLoggedInUsers})`;
                   hrefValue = LOGOUT_ADDRESS;
+                }
+              }
+              if (title === "Upload Own Item") {
+                if (loginStatus === "NOT_LOGGED_IN") {
+                  return null;
                 }
               }
               return (
@@ -81,7 +86,7 @@ const TheNavbar = () => {
             <button className=" bg-[white] p-3 rounded-full active:scale-[0.95]">
               <img
                 src="/images/icons/cart.png"
-                className=" w-[2.2rem] lg:w-[3rem]"
+                className="min-w-[2.2rem] w-[2.2rem] lg:w-[3rem]"
               />
             </button>
           </Link>

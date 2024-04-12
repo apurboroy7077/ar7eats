@@ -18,8 +18,8 @@ const linkData = [
     hrefValue: "/about-us",
   },
   {
-    title: "Order Online",
-    hrefValue: "/order-online",
+    title: "Upload Own Item",
+    hrefValue: "/upload-product",
   },
   {
     title: "My Orders",

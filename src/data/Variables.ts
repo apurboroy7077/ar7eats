@@ -29,6 +29,7 @@ const GET_TOTAL_NUMBER_OF_FOOD_IN_DATABASE_API =
 const UPDATE_DATABASE_API_1 = "/admin/update_database_1/api";
 const GET_FOOD_DATA_BASED_ON_CATEGORY_API =
   "/get-food-data/get-food-data-based-on-category/api";
+const UPLOAD_PRODUCT_API = "/upload-product/api";
 export {
   SIGN_UP_API,
   SIGN_IN_PAGE_ADDRESS,
@@ -56,4 +57,5 @@ export {
   GET_TOTAL_NUMBER_OF_FOOD_IN_DATABASE_API,
   UPDATE_DATABASE_API_1,
   GET_FOOD_DATA_BASED_ON_CATEGORY_API,
+  UPLOAD_PRODUCT_API,
 };
