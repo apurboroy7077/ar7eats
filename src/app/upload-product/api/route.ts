@@ -1,3 +1,4 @@
+import { myPool } from "@/utils/PostgresqlConfiguration";
 import { existsSync, mkdirSync, writeFile } from "fs";
 import { join } from "path";
 
@@ -14,14 +15,20 @@ const POST = async (req: Request) => {
     const imageFile: any = formData.get("image");
     const imageBytes = await imageFile!.arrayBuffer();
     const imageBuffer = Buffer.from(imageBytes);
-    const directory = "write-file-test";
+    const directory = "public/images/food";
     const fileName = imageFile!.name;
-
     const filePath = join(directory, fileName);
+    const rating = Math.floor(Math.random() * 6);
+    const id = Math.random().toString();
+
     if (!existsSync(directory)) {
       mkdirSync(directory);
       9;
     }
+    const imageSrc = `/images/food/${fileName}`;
+    console.log(name, price, rating, description, id, category, imageSrc);
+    await myPool.query("");
+
     await writeFile(filePath, imageBuffer, (error) => {
       console.log(error);
     });
