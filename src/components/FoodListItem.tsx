@@ -15,7 +15,6 @@ type propsType = {
 };
 const FoodListItem = (props: propsType) => {
   const { data } = props;
-  console.log(data);
   const { name, imageSrc, description, rating, id, category } = data;
   const addToCart = useCart((state: any) => state.addToCart);
   const cartData: cartDataType = useCart((state: any) => state.cartData);

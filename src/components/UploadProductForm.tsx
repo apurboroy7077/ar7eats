@@ -75,6 +75,7 @@ const UploadProductForm = () => {
               className="w-full text-sm md:text-base h-[1.7rem] md:h-[2.5rem] px-2 border-[black] border-[1px] rounded"
               placeholder="Price"
               name="price"
+              type="number"
             />
           </div>
           <div className="">

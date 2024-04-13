@@ -27,7 +27,17 @@ const POST = async (req: Request) => {
     }
     const imageSrc = `/images/food/${fileName}`;
     console.log(name, price, rating, description, id, category, imageSrc);
-    await myPool.query("");
+    await myPool
+      .query(
+        "INSERT INTO fooddata(name, price, rating, description, id, category, imageSrc) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+        [name, price, rating, description, id, category, imageSrc]
+      )
+      .then((response: any) => {
+        console.log(response);
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
 
     await writeFile(filePath, imageBuffer, (error) => {
       console.log(error);
