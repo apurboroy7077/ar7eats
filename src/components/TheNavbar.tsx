@@ -6,6 +6,7 @@ import {
 } from "@/data/Variables";
 import linkData from "@/data/linkData";
 import { userDataType } from "@/data/types";
+import useCart from "@/utils/ZustandCart";
 import useUser from "@/utils/ZustandUser";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -13,6 +14,7 @@ import { useEffect, useRef, useState } from "react";
 const TheNavbar = () => {
   const loginStatus = useUser((state) => state.loginStatus);
   const nameOfLoggedInUsers = useUser((state) => state.name);
+  const cartData = useCart((state) => state.cartData);
   let [userName, setUserName] = useState("");
   useEffect(() => {
     let userData = localStorage.getItem(LOCALSTORAGE_USERDATA_KEYNAME);
@@ -83,11 +85,16 @@ const TheNavbar = () => {
             />
           </button>
           <Link className="hidden md:block" href={CART_PAGE_LINK}>
-            <button className=" bg-[white] p-3 rounded-full active:scale-[0.95]">
+            <button className=" relative bg-[white] p-3 rounded-full active:scale-[0.95]">
               <img
                 src="/images/icons/cart.png"
                 className="min-w-[2.2rem] w-[2.2rem] lg:w-[3rem]"
               />
+              {cartData.length > 0 && (
+                <div className=" absolute bg-[#F54748] text-white px-3 rounded top-[-1px] right-[-16px]">
+                  {cartData.length}
+                </div>
+              )}
             </button>
           </Link>
           {loginStatus === "NOT_LOGGED_IN" && (

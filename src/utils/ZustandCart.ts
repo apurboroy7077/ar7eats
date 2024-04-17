@@ -6,10 +6,23 @@ import { foodDataType } from "@/data/foodData";
 import { cartDataType } from "@/data/types";
 import axios from "axios";
 import { create } from "zustand";
-
-const useCart = create((set) => ({
+type useCartType = {
+  cartData: cartDataType;
+  dataOfSavedCartItems: foodDataType[];
+  confirmOrderPopupStatus: "OPENED" | "CLOSED";
+  loadCartData: () => void;
+  addToCart: (id: string) => void;
+  increaseAmount: (id: string) => void;
+  decreaseAmount: (id: string) => void;
+  deleteFromCart: (id: string) => void;
+  loadDataOfSavedCartItems: () => void;
+  openConfirmOrderPopup: () => void;
+  closeConfirmOrderPopup: () => void;
+  clearCart: () => void;
+};
+const useCart = create<useCartType>((set) => ({
   cartData: [] as cartDataType,
-  dataOfSavedCartItems: [] as foodDataType,
+  dataOfSavedCartItems: [] as foodDataType[],
   confirmOrderPopupStatus: "CLOSED",
   loadCartData: () => {
     const savedCartData = localStorage.getItem(
